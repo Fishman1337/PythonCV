@@ -1,6 +1,10 @@
 import matplotlib.pyplot as plt
 import PIL as Image
+import numpy as np
 import cv2
+import cvTransforms as cvt
+import cvFeature as cvfeat
+import cvGrad as cvgrad 
 
 #Tutorials from the Python OpenCV documentation formatted for expedited execution/learning.
 #http://docs.opencv.org/trunk/doc/py_tutorials/py_tutorials.html
@@ -10,7 +14,9 @@ import cv2
 
 def readImages():
 	#Import the images used in the tutorial functions.
-	global jelly, jellyRGB, penguinBGR
+	global j, chess, jelly, jellyRGB, penguinBGR
+	j = cv2.imread('images/j.png', 0)
+	chess = cv2.imread('images/harristest.jpg')
 	jelly = cv2.imread('images/test.jpg', 0)
 	jellyRGB = cv2.imread('images/test.jpg')
 	penguinRGB = cv2.imread('images/Penguins')
@@ -62,8 +68,44 @@ def borderPadding(imageObj):
 
 def main():
 	readImages()
-	imageAddition()
-	makeHists(jellyRGB)
-	borderPadding(jellyRGB)
+	#imageAddition()
+	#makeHists(jellyRGB)
+	#borderPadding(jellyRGB)
+	#transforms(jelly)
+	#imageDisplay(cvt.scaling(jellyRGB, 0.2, 0.3))
+	#imageDisplay(cvt.translation(jellyRGB, 300, 500))
+	#imageDisplay(cvt.rotation(jellyRGB, 120))
+	
+	#imageDisplay(cvt.affineTransform(jellyRGB))
 
-main()
+	#imageDisplay(cvt.morphoTransform(j, 'dilation', 2))
+	#imageDisplay(cvt.morphoTransform(j, 'blackhat', 1))
+	#imageDisplay(cvt.morphoTransform(j, 'opening', 4))
+
+	sift = cv2.SIFT()
+	kp = sift.detect(jelly, None)
+
+	jelly3 = cv2.drawKeypoints(jelly, kp)
+
+	#imageDisplay(jelly3)
+
+	#img = cv2.drawKeypoints(jelly3, kp, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+	#imageDisplay(img)
+
+	#imageDisplay(cvfeat.harrisCorner(chess))
+
+	#imageDisplay(cvfeat.siftMatching(jelly, jelly))
+
+	cvgrad.imageGradient(jelly)
+
+
+
+	#cv2.imwrite('images/sift_test.jpg', jelly3)
+
+
+
+
+	
+
+if __name__ == "__main__":
+	main()
