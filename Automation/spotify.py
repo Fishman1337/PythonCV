@@ -25,12 +25,20 @@ def searchSpotify(list):
 	browser.find_element_by_id('nav-search').click()
 	for track in list:
 		time.sleep(5)
-		browser.switch_to_frame(browser.find_element_by_tag_name("iframe"))
-		g = browser.find_element_by_tag_name("iframe")
-		print g
-		searchBox = browser.find_element_by_xpath('/html/body/div[1]/form/input')
-		searchBox.send_keys(track[0])
+		iframe = browser.find_element_by_id('suggest')
+		print iframe
+		searchBox = browser.find_elements_by_tag_name('input')
+		for item in searchBox:
+			print item
+		searchBox[2].send_keys(track[0])
 		searchBox.submit()
+
+
+	#iframe = driver.find_elements_by_tag_name('iframe')[0]
+	#driver.switch_to_default_content()
+
+	#driver.switch_to_frame(iframe)
+	#driver.find_elements_by_tag_name('iframe')[0]
 	#browser.find_element_by_css_selector('a#nav-search.spoticon-search-32.standard-menu-item').click()
 
 	#a#nav-search.spoticon-search-32.standard-menu-item
